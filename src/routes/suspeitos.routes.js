@@ -26,6 +26,13 @@ let suspeitos = [
     },
 ];
 
-
+// Rota para listar todos os suspeito
+suspeitosRoutes.get("/", (req, res) => {
+    return res.status(200).json(suspeitos);
+  });
+  
+  
+  
+  export default suspeitosRoutes;
 
 
