@@ -1,6 +1,6 @@
 import express from "express";
 import { config } from "dotenv";
-import routes from "../src/routes/index.routes";
+import routes from "../src/routes/index.routes.js";
 
 config();
 
