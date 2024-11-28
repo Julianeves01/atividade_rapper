@@ -22,10 +22,6 @@
   ],
   "author": "Julia Neves",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/Julianeves01/atividade_rapper/issues"
-  },
-  "homepage": "https://github.com/Julianeves01/atividade_rapper#readme",
   "dependencies": {
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
