@@ -120,8 +120,8 @@ suspeitosRoutes.put("/:id", req, res) => {
   if ((Number.isInteger(idade)) == false  ) {
     return res.status(400).send({
       message: "Digite um numero inteiro para idade!!",
-    })
-  }
+    })    
+  };
 
 suspeitos.nome = nome
 suspeitos.idade = idade
@@ -132,7 +132,7 @@ return res.status(200).json({
   message: "suspeito atualizado com sucesso!",
   suspeito,
 })
-}
+};
 
 //rota para deletar suspeito
 suspeitosRoutes.delete("/:id", (req, res) => {
