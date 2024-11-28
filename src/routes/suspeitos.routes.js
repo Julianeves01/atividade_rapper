@@ -1,29 +1,49 @@
 import { Router } from "express";
 
 const suspeitosRoutes = Router();
+
 let suspeitos = [
   {
     id: Math.floor(Math.random() * 99 + 1),
     nome: "Jollie Santos",
     idade: 28,
-    descricaoFisica: "Altura média, cabelo loiro, tatuagem delicada nos braços, olhos verdes",
     envolvimento: true,
+    descricaoFisica: [
+      "Altura média", 
+      "cabelo loiro", 
+      "tatuagem delicada nos braços", 
+      "olhos verdes",
+    ],
   },
   {
     id: Math.floor(Math.random() * 99 + 1),
     nome: "Jane Smith",
     idade: 30,
-    descricaoFisica: "Baixa, cabelo moreno, olho castanho claro",
     envolvimento: false,
+    descricaoFisica: [
+      "Baixa",
+      "cabelo moreno", 
+      "olho castanho claro",
+    ],
   },
   {
     id: Math.floor(Math.random() * 99 + 1),
     nome: "Jay Z",
     idade: 54,
-    descricaoFisica: "Alto, cabelo preto, olhos pretos",
     envolvimento: true,
+    descricaoFisica: [
+      "Alto",
+      "cabelo preto", 
+      "olhos pretos",
+    ],
   },
 ];
+
+//rota para listar os suspeitos
+
+suspeitosRoutes.get("/", (req, res) => {
+  return res.status(200).json(suspeitos);
+});
 
 // Rota para cadastrar um novo suspeito
 suspeitosRoutes.get("/", (req, res) => {
