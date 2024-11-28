@@ -41,17 +41,17 @@ suspeitosRoutes.post("/", (req, res) => {
   const { nome, idade, envolvimento, descricaoFisica } = req.body;
 
   // Validação dos campos
-  if (!nome || !idade || envolvimento === undefined) {
+  if (!nome || !idade || !envolvimento) {
     return res.status(400).json({
       message: "Os campos nome, idade e envolvimento são obrigatórios!",
     });
   }
-  if (typeof envolvimento !== "boolean") {
+  if (envolvimento != "sim" && envolvimento != "não") {
     return res.status(400).send({
       message: "O campo 'envolvimento' deve ser true ou false!",
     });
   }
-  if (!Number.isInteger(idade)) {
+  if (!Number.isInteger(idade) == false ) {
     return res.status(400).send({
       message: "Idade deve ser um número inteiro!",
     });

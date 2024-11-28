@@ -13,4 +13,9 @@ routes.get("/", (req, res) => {
 // Lista de uso das rotas do projeto
 routes.use("/suspeitos", suspeitoRoutes);
 
+//rota suspeitos
+suspeitoRoutes.get("/", (req, res) => {
+  return res.status(200).json(suspeitos);
+});
+
 export default routes;
