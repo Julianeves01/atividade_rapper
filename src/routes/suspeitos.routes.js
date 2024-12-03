@@ -36,43 +36,45 @@ suspeitosRoutes.get("/", (req, res) => {
   return res.status(200).json(suspeitos);
 });
 
-// Rota para cadastrar um novo suspeito
 suspeitosRoutes.post("/", (req, res) => {
   const { nome, idade, envolvimento, descricaoFisica } = req.body;
 
   // Validação dos campos
-  if (!nome || !idade || !envolvimento) {
+  if (!nome || !idade || typeof envolvimento !== "boolean") {
     return res.status(400).json({
-      message: "Os campos nome, idade e envolvimento são obrigatórios!",
+      message: "Os campos nome, idade e envolvimento (true/false) são obrigatórios!",
     });
   }
-  if (envolvimento != "sim" && envolvimento != "não") {
-    return res.status(400).send({
-      message: "O campo 'envolvimento' deve ser true ou false!",
-    });
-  }
-  if (!Number.isInteger(idade) == false ) {
+
+  if (!Number.isInteger(idade)) {
     return res.status(400).send({
       message: "Idade deve ser um número inteiro!",
     });
   }
 
+  if (descricaoFisica && !Array.isArray(descricaoFisica)) {
+    return res.status(400).send({
+      message: "O campo 'descricaoFisica' deve ser um array!",
+    });
+  }
+
   // Criar novo suspeito
   const novoSuspeito = {
-    id: Math.floor(Math.random() * 1000000),
+    id: Math.floor(Math.random() * 1000000), // ou usar uuid
     nome,
     idade,
     envolvimento,
     descricaoFisica,
   };
 
-  // Adicionar novo suspeito ao array de suspeitos
   suspeitos.push(novoSuspeito);
+
   return res.status(201).json({
     message: "Suspeito cadastrado com sucesso!",
     novoSuspeito,
   });
 });
+
 
 // Buscar suspeito por ID
 suspeitosRoutes.get("/:id", (req, res) => {
