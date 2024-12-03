@@ -42,7 +42,6 @@ suspeitosRoutes.post("/", (req, res) => {
 
   console.log(nome, idade, envolvimento);
   
-
   // Validação dos campos
   if (!nome || !idade || !envolvimento) {
     return res.status(400).json({
@@ -50,9 +49,9 @@ suspeitosRoutes.post("/", (req, res) => {
     });
   }
 
-  if (envolvimento != "sim" && envolvimento != "não") {
+  if (envolvimento != true && envolvimento != false) {
     return res.status(400).send({
-      message: "Coloque 'sim' ou 'não'!",
+      message: "Coloque 'true' ou 'false'!",
     });
   }
   if (Number.isInteger(idade) == false) {
@@ -72,7 +71,6 @@ suspeitosRoutes.post("/", (req, res) => {
 
   // Adicionar ao array
   suspeitos.push(novoSuspeito);
-
   return res.status(201).json({
     message: "Suspeito cadastrado com sucesso!",
     novoSuspeito,
