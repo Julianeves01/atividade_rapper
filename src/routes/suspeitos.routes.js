@@ -12,8 +12,7 @@ let suspeitos = [
       "Altura média",
       "cabelo loiro",
       "tatuagem delicada nos braços",
-      "olhos verdes",
-    ],
+      "olhos verdes"],
   },
   {
     id: Math.floor(Math.random() * 99 + 1),
@@ -94,52 +93,47 @@ suspeitosRoutes.get("/:id", (req, res) => {
   return res.status(200).json(suspeito);
 });
 
-// Atualizar suspeito por ID
+// Rota para atualizar um suspeito pelo id
 suspeitosRoutes.put("/:id", (req, res) => {
-  const { id } = req.params;
-  const { nome, idade, envolvimento, descricaoFisica } = req.body;
+  const { id } = req.params
+  const { nome, idade, envolvimento, descricaoFisica} = req.body
 
-  // Buscar suspeito por ID
-  const suspeitoIndex = suspeitos.findIndex((suspect) => suspect.id == id);
+  // Busca um suspeito pelo id no array de suspeitos
+  const suspeito = suspeitos.find((suspect) => suspect.id == id)
 
-  // Validação se o suspeito foi encontrado
-  if (suspeitoIndex === -1) {
+  if (!suspeito) {
     return res.status(404).json({
       message: `Suspeito com ID ${id} não encontrado!`,
-    });
+    })
   }
 
-  // Validação de campos obrigatórios
-  if (!nome || !idade || envolvimento === undefined) {
+  // Validação dos campos obrigatórios
+  if (!nome || !idade || !envolvimento) {
     return res.status(400).json({
-      message: "Os campos nome, idade e envolvimento são obrigatórios!",
+      message: "Os campos nome, idade, envolvimento sao obrigatorios!",
+    })
+  }
+  if (envolvimento != true && envolvimento != false) {
+    return res.status(400).send({
+      message: "Coloque 'true' ou 'false'!",
     });
   }
-  if (typeof envolvimento !== "boolean") {
+  if ((Number.isInteger(idade)) == false  ) {
     return res.status(400).send({
-      message: "O campo 'envolvimento' deve ser true ou false!",
-    });
-  }
-  if (!Number.isInteger(idade)) {
-    return res.status(400).send({
-      message: "Idade deve ser um número inteiro!",
-    });
+      message: "Digite um numero inteiro para idade!!",
+    })
   }
 
-  // Atualizar o suspeito
-  suspeitos[suspeitoIndex] = {
-    ...suspeitos[suspeitoIndex],
-    nome,
-    idade,
-    envolvimento,
-    descricaoFisica,
-  };
+   suspeito.nome = nome
+  suspeito.idade = idade
+  suspeito.envolvimento = envolvimento
+  suspeito.descricaoFisica = descricaoFisica
 
   return res.status(200).json({
     message: "Suspeito atualizado com sucesso!",
-    suspeito: suspeitos[suspeitoIndex],
-  });
-});
+    suspeito,
+  })
+})
 
 // Rota para deletar suspeito
 suspeitosRoutes.delete("/:id", (req, res) => {
