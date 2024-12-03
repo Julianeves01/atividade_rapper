@@ -36,37 +36,41 @@ suspeitosRoutes.get("/", (req, res) => {
   return res.status(200).json(suspeitos);
 });
 
+
 suspeitosRoutes.post("/", (req, res) => {
   const { nome, idade, envolvimento, descricaoFisica } = req.body;
 
+  console.log(nome, idade, envolvimento);
+  
+
   // Validação dos campos
-  if (!nome || !idade || typeof envolvimento !== "boolean") {
+  if (!nome || !idade || !envolvimento) {
     return res.status(400).json({
-      message: "Os campos nome, idade e envolvimento (true/false) são obrigatórios!",
+      message: "Os campos nome, idade e envolvimento são obrigatórios!",
     });
   }
 
-  if (!Number.isInteger(idade)) {
+  if (envolvimento != "sim" && envolvimento != "não") {
     return res.status(400).send({
-      message: "Idade deve ser um número inteiro!",
+      message: "Coloque 'sim' ou 'não'!",
     });
   }
-
-  if (descricaoFisica && !Array.isArray(descricaoFisica)) {
+  if (Number.isInteger(idade) == false) {
     return res.status(400).send({
-      message: "O campo 'descricaoFisica' deve ser um array!",
+      message: "A idade precisa ser um número inteiro.",
     });
   }
 
   // Criar novo suspeito
   const novoSuspeito = {
-    id: Math.floor(Math.random() * 1000000), // ou usar uuid
+    id: Math.floor(Math.random() * 1000000),
     nome,
     idade,
     envolvimento,
     descricaoFisica,
   };
 
+  // Adicionar ao array
   suspeitos.push(novoSuspeito);
 
   return res.status(201).json({
